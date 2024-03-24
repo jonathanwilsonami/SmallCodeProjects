@@ -61,7 +61,8 @@ iot23 = iot23.withColumn("resp_ip_bytes", F.col("resp_ip_bytes").cast(DoubleType
 iot23 = iot23.withColumn("orig_pkts", F.col("orig_pkts").cast(IntegerType()))
 iot23 = iot23.withColumn("resp_pkts", F.col("resp_pkts").cast(IntegerType()))
 
-iot23.show(5)
+S3_BUCKET = "iot23-project"
+iot23.write.parquet(f"s3a://{S3_BUCKET}/iot23.parquet", mode="overwrite")
 
 job.commit()
 
